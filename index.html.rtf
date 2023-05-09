@@ -1,0 +1,155 @@
+{\rtf1\ansi\ansicpg932\cocoartf2708
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww30260\viewh19380\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="ja">\
+<head>\
+    <title>\uc0\u22818 \u12434 \u35352 \u37682 \u12377 \u12427 Web\u12450 \u12503 \u12522 </title>\
+    <meta charset="utf-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <style>\
+        body \{\
+            font-family: "Arial", sans-serif;\
+        \}\
+\
+        header \{\
+            background-color: #4CAF50;\
+            color: white;\
+            text-align: center;\
+            padding: 1em;\
+        \}\
+\
+        main \{\
+            padding: 1em;\
+        \}\
+\
+        section \{\
+            margin-bottom: 2em;\
+        \}\
+\
+        label \{\
+            display: block;\
+            margin-bottom: 0.5em;\
+        \}\
+\
+        input[type="submit"] \{\
+            background-color: #4CAF50;\
+            color: white;\
+            padding: 0.5em 1em;\
+            border: none;\
+            cursor: pointer;\
+        \}\
+\
+        input[type="submit"]:hover \{\
+            background-color: #45a049;\
+        \}\
+    </style>\
+</head>\
+<body>\
+<header>\
+    <h1>\uc0\u22818 \u12434 \u35352 \u37682 \u12377 \u12427 Web\u12450 \u12503 \u12522 </h1>\
+</header>\
+<main>\
+    <section>\
+        <h2>\uc0\u22818 \u12398 \u35352 \u37682 </h2>\
+        <form id="dreamForm">\
+            <label for="date">\uc0\u26085 \u20184 \u65306 </label>\
+            <input type="date" id="date" name="date" required><br><br>\
+            <label for="dream">\uc0\u22818 \u12398 \u20869 \u23481 \u65306 </label><br>\
+            <textarea id="dream" name="dream" rows="5" cols="50" required></textarea><br><br>\
+            <input type="submit" value="\uc0\u36865 \u20449 ">\
+        </form>\
+    </section>\
+    <section>\
+        <h2>\uc0\u22818 \u21344 \u12356 </h2>\
+        <p id="dreamFortune">\uc0\u12371 \u12371 \u12395 \u22818 \u21344 \u12356 \u12398 \u32080 \u26524 \u12364 \u34920 \u31034 \u12373 \u12428 \u12414 \u12377 \u12290 </p>\
+    </section>\
+    <section>\
+        <h2>\uc0\u22818 \u12398 \u20849 \u26377 </h2>\
+        <form id="dreamBoardForm">\
+            <label for="dreamBoardMessage">\uc0\u22818 \u12398 \u20849 \u26377 \u65306 </label><br>\
+            <textarea id="dreamBoardMessage" name="dreamBoardMessage" rows="5" cols="50" required></textarea><br><br>\
+            <input type="submit" value="\uc0\u36865 \u20449 ">\
+        </form>\
+        <ul id="dreamBoard">\
+            <!-- \uc0\u12371 \u12371 \u12395 \u25237 \u31295 \u12373 \u12428 \u12383 \u22818 \u12398 \u20849 \u26377 \u12398 \u12513 \u12483 \u12475 \u12540 \u12472 \u12364 \u36861 \u21152 \u12373 \u12428 \u12414 \u12377 \u12290  -->\
+        </ul>\
+    </section>\
+</main>\
+<script>\
+    // \uc0\u22818 \u12398 \u35352 \u37682 \u12501 \u12457 \u12540 \u12512 \u12398 \u36865 \u20449 \u26178 \u12398 \u20966 \u29702 \
+    document.getElementById("dreamForm").addEventListener("submit", function (event) \{\
+        event.preventDefault();\
+        var date = document.getElementById("date").value;\
+        var dream = document.getElementById("dream").value;\
+        // \uc0\u12525 \u12540 \u12459 \u12523 \u12473 \u12488 \u12524 \u12540 \u12472 \u12395 \u22818 \u12398 \u35352 \u37682 \u12434 \u20445 \u23384 \u12377 \u12427 \
+        if (localStorage.getItem("dreams") === null) \{\
+            var dreams = [];\
+        \} else \{\
+            var dreams = JSON.parse(localStorage.getItem("dreams"));\
+        \}\
+        dreams.push(\{date: date, dream: dream\});\
+        localStorage.setItem("dreams", JSON.stringify(dreams));\
+       \
+        alert("\uc0\u22818 \u12398 \u35352 \u37682 \u12364 \u20445 \u23384 \u12373 \u12428 \u12414 \u12375 \u12383 \u12290 ");\
+        // \uc0\u12501 \u12457 \u12540 \u12512 \u12434 \u12522 \u12475 \u12483 \u12488 \u12377 \u12427 \
+        document.getElementById("dreamForm").reset();\
+    \});\
+\
+    // \uc0\u22818 \u21344 \u12356 \u12398 \u20966 \u29702 \
+    function updateDreamFortune() \{\
+        var dreamFortune = document.getElementById("dreamFortune");\
+        if (localStorage.getItem("dreams") !== null) \{\
+            var dreams = JSON.parse(localStorage.getItem("dreams"));\
+            var lastDream = dreams[dreams.length - 1].dream;\
+            var dreamFortuneText = "\uc0\u12304 \u20170 \u26085 \u12398 \u22818 \u21344 \u12356 \u12305 \\n\\n" + lastDream + "\\n\\n\u20170 \u26085 \u12399 " + lastDream.length + "\u28857 \u12391 \u12377 \u12290 ";\
+            dreamFortune.textContent = dreamFortuneText;\
+        \} else \{\
+            dreamFortune.textContent = "\uc0\u22818 \u12398 \u35352 \u37682 \u12364 \u12354 \u12426 \u12414 \u12379 \u12435 \u12290 ";\
+        \}\
+    \}\
+    updateDreamFortune();\
+\
+    // \uc0\u22818 \u12398 \u20849 \u26377 \u12501 \u12457 \u12540 \u12512 \u12398 \u36865 \u20449 \u26178 \u12398 \u20966 \u29702 \
+    document.getElementById("dreamBoardForm").addEventListener("submit", function (event) \{\
+        event.preventDefault();\
+        var message = document.getElementById("dreamBoardMessage").value;\
+        // \uc0\u12525 \u12540 \u12459 \u12523 \u12473 \u12488 \u12524 \u12540 \u12472 \u12395 \u22818 \u12398 \u20849 \u26377 \u12398 \u12513 \u12483 \u12475 \u12540 \u12472 \u12434 \u20445 \u23384 \u12377 \u12427 \
+        if (localStorage.getItem("dreamBoard") === null) \{\
+            var dreamBoard = [];\
+        \} else \{\
+            var dreamBoard = JSON.parse(localStorage.getItem("dreamBoard"));\
+        \}\
+        dreamBoard.push(message);\
+        localStorage.setItem("dreamBoard", JSON.stringify(dreamBoard));\
+        alert("\uc0\u22818 \u12398 \u20849 \u26377 \u12364 \u36865 \u20449 \u12373 \u12428 \u12414 \u12375 \u12383 \u12290 ");\
+        // \uc0\u12501 \u12457 \u12540 \u12512 \u12434 \u12522 \u12475 \u12483 \u12488 \u12377 \u12427 \
+        document.getElementById("dreamBoardForm").reset();\
+        // \uc0\u22818 \u12398 \u20849 \u26377 \u12398 \u12513 \u12483 \u12475 \u12540 \u12472 \u12434 \u34920 \u31034 \u12377 \u12427 \
+        showDreamBoard();\
+    \});\
+\
+    // \uc0\u22818 \u12398 \u20849 \u26377 \u12398 \u12513 \u12483 \u12475 \u12540 \u12472 \u12434 \u34920 \u31034 \u12377 \u12427 \
+    function showDreamBoard() \{\
+        var dreamBoard = document.getElementById("dreamBoard");\
+        dreamBoard.innerHTML = "";\
+        if (localStorage.getItem("dreamBoard") !== null) \{\
+            var messages = JSON.parse(localStorage.getItem("dreamBoard"));\
+            for (var i = 0; i < messages.length; i++) \{\
+                var messageItem = document.createElement("li");\
+                var messageText = document.createTextNode(messages[i]);\
+                messageItem.appendChild(messageText);\
+                dreamBoard.appendChild(messageItem);\
+            \}\
+        \}\
+    \}\
+    showDreamBoard();\
+</script>\
+</body>\
+</html>\
+\
+}
